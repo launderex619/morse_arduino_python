@@ -4,10 +4,11 @@ import threading
 running = ""
 
 def leerArduinoSonido(running):
+    constantes.filtro = []
     while running.is_set():
         cadenaMorse = constantes.arduino.readline()
         print(cadenaMorse)
-        constantes.filtro.append(cadenaMorse)
+        constantes.filtro.append(cadenaMorse[:1])
 
 def analizarSonido(lista):
     listaTentativa = []
@@ -17,19 +18,23 @@ def analizarSonido(lista):
         contador = 0
         iterador = lista[posicionEnLista:posicionEnLista+50]
         for x in iterador:
-            if(x == 1):
+            if(x == '1'):
                 contador += 1
-        contador = contador / 50
-        if (contador > .5):
+        contador = contador / 50.0
+        if (contador > .3):
             contador = 1
         else:
             contador = 0
         listaTentativa.append(contador)
-        posicionEnLista += 1
+        posicionEnLista += 50
         contador = 0
         unidades -= 1
+    print('binarios recolectados: ')
+    print(listaTentativa)
     listaTentativa = constantes.numerosListaANumerosAscii(listaTentativa)
+    print(constantes.decodifica(listaTentativa))
 
+#menu del modulo de sonido
 def sonido():
     print('-------------------------')
     print('1.- Emitir')
@@ -49,6 +54,7 @@ def sonido():
                 a = constantes.arduino.readline()[:1]
                 if(a == '1'):
                     break
+            print("sonido detectado, comenzando el analisis....")
             running.set()
             thread = threading.Thread(target=leerArduinoSonido, args=(running,))
             thread.start()
@@ -57,8 +63,8 @@ def sonido():
                 running.clear()
                 thread.join()
                 break
-            print(constantes.cadenaMorse)
-            analizarSonido(constantes.cadenaMorse)
+            print('limpiando ruido...')
+            analizarSonido(constantes.filtro)
     except ValueError:
         print('Valor no valido')
 
