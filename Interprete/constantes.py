@@ -162,7 +162,7 @@ def listaAscii(lista):
         oracion += morseAscii.get(cad)
     return oracion
 
-def enviaCadArduino(cadena):
+def enviaCadArduinoSonido(cadena):
     for c in cadena:
         morse = asciiMorse.get(c)
         for m in morse:
@@ -174,4 +174,17 @@ def enviaCadArduino(cadena):
                 time.sleep(4)
             elif m == '@':
                 arduino.write(3)
+                time.sleep(3)
+def enviaCadArduinoLuz(cadena):
+    for c in cadena:
+        morse = asciiMorse.get(c)
+        for m in morse:
+            if m == '.':
+                arduino.write(4)
+                time.sleep(2)
+            elif m == '-':
+                arduino.write(5)
+                time.sleep(4)
+            elif m == '@':
+                arduino.write(6)
                 time.sleep(3)
