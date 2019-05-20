@@ -60,32 +60,30 @@ def numerosListaANumerosAscii(lista):
         i = 0
         while i  < (len(lista)):
             if(lista[i] == 1):
-                if(lista[i + 1] == 1):
-                    if(lista[i + 2] == 1):
-                        listaMorse.append(raya)
-                        i += 2
-                        continue
-                    else:
-                        i += 1
-                        listaMorse.append(punto)
-                        continue
-                else:
-                    continue
+                if(i + 1 < len(lista)):
+                    if(lista[i + 1] == 1 ):
+                        if(i + 2 < len(lista)):
+                            if(lista[i + 2] == 1):
+                                listaMorse.append(raya)
+                                i += 2
+                            else:
+                                i += 1
+                                listaMorse.append(punto)
             else:
-                if(lista[i + 1] == 0):
-                    if(lista[i + 2] == 0):
-                        listaMorse.append(espacioPalabra)
-                        i += 2
-                        continue
-                    else:
-                        listaMorse.append(espacioLetra)
-                        i += 1
-                        continue
+                if(i + 1 < len(lista)):
+                    if(lista[i + 1] == 0):
+                        if(i + 2 < len(lista)):
+                            if(lista[i + 2] == 0):
+                                listaMorse.append(espacioPalabra)
+                                i += 2
+                            else:
+                                listaMorse.append(espacioLetra)
+                                i += 1
                 else:
                     listaMorse.append(espacioLetra)
+            i+=1
     except:
         pass
-    print(listaMorse)
     return listaMorse
 
 def decodifica(lista):

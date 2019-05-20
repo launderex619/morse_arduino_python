@@ -7,7 +7,7 @@ def leerArduinoSonido(running):
     constantes.filtro = []
     while running.is_set():
         cadenaMorse = constantes.arduino.readline()
-        print(cadenaMorse)
+       # print(cadenaMorse)
         constantes.filtro.append(cadenaMorse[:1])
 
 def analizarSonido(lista):
@@ -32,6 +32,7 @@ def analizarSonido(lista):
     print('binarios recolectados: ')
     print(listaTentativa)
     listaTentativa = constantes.numerosListaANumerosAscii(listaTentativa)
+    print(listaTentativa)
     print(constantes.decodifica(listaTentativa))
 
 #menu del modulo de sonido
