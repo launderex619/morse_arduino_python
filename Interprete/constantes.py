@@ -95,7 +95,7 @@ def decodifica(lista):
             cad += "."
         elif x == 2:
             cad += "-"
-        elif x == 3:
+        elif x == 3 and cad != "":
             oracion += convierte(cad)
             cad = ""
         elif x == 4:

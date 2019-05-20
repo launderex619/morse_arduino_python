@@ -13,14 +13,16 @@ def leerArduinoSonido(running):
 def analizarSonido(lista):
     listaTentativa = []
     unidades = len(lista) /50
+    print(unidades)
     posicionEnLista = 0
     while(unidades > 0):
         contador = 0
         iterador = lista[posicionEnLista:posicionEnLista+50]
         for x in iterador:
-            if(x == 1):
+            if(x == '1'):
                 contador += 1
         contador = contador / 50.0
+        print(contador)
         if (contador > .3):
             contador = 1
         else:
@@ -29,10 +31,10 @@ def analizarSonido(lista):
         posicionEnLista += 50
         contador = 0
         unidades -= 1
-        print('binarios recolectados: ')
-        print(listaTentativa)
-        listaTentativa = constantes.numerosListaANumerosAscii(listaTentativa)
-        print(constantes.decodifica(listaTentativa))
+    print('binarios recolectados: ')
+    print(listaTentativa)
+    listaTentativa = constantes.numerosListaANumerosAscii(listaTentativa)
+    print(constantes.decodifica(listaTentativa))
 
 def sonido():
     print('-------------------------')

@@ -52,12 +52,13 @@ def luz():
         elif (opcion == 2):
             print('presiona ENTER para salir del modo escucha\n')
             estadoReciviendo = True
-            constantes.arduino.write(constantes.modoEscuchaSonido)
+            constantes.arduino.write(constantes.modoEscuchaLuz)
             while True:
-                a = constantes.arduino.readline()[:1]
-                if(a == '1'):
+                a = constantes.arduino.readline()[:3]
+                a = int(a)
+                if(a > 300):
                     break
-            print("sonido detectado, comenzando el analisis....")
+            print("luz detectada, comenzando el analisis....")
             running.set()
             thread = threading.Thread(target=leerArduinoLuz, args=(running,))
             thread.start()
