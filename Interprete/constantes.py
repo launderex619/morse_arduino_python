@@ -1,8 +1,8 @@
-import serial,threading, time
+import serial,threading
 
 programaEjecutandose = True
 modoEscuchaSonido = '7'
-arduino = serial.Serial('/dev/ttyUSB0', 9600)
+arduino = serial.Serial('/dev/ttyACM0', 9600)
 filtro = []
 tiempoEsperaCiclo = 20
 cadenaMorse = ""
@@ -165,26 +165,24 @@ def listaAscii(lista):
 def enviaCadArduinoSonido(cadena):
     for c in cadena:
         morse = asciiMorse.get(c)
+        print(morse)
         for m in morse:
             if m == '.':
-                arduino.write(1)
-                time.sleep(2)
+                arduino.write('1')
             elif m == '-':
-                arduino.write(2)
-                time.sleep(4)
+                arduino.write('2')
             elif m == '@':
-                arduino.write(3)
-                time.sleep(3)
+                arduino.write('3')
+    arduino.write('3')
 def enviaCadArduinoLuz(cadena):
     for c in cadena:
         morse = asciiMorse.get(c)
+        print(morse)
         for m in morse:
             if m == '.':
-                arduino.write(4)
-                time.sleep(2)
+                arduino.write('4')
             elif m == '-':
-                arduino.write(5)
-                time.sleep(4)
+                arduino.write('5')
             elif m == '@':
-                arduino.write(6)
-                time.sleep(3)
+                arduino.write('6')
+    arduino.write('6')
