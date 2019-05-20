@@ -48,7 +48,7 @@ morseAscii = {
         "---..": "8",
         "----.": "9",
         "@": " "
-
+        }
 def numerosListaANumerosAscii(lista):
     punto = 1
     raya = 2
