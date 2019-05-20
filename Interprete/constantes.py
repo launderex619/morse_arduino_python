@@ -2,7 +2,8 @@ import serial,threading
 
 programaEjecutandose = True
 modoEscuchaSonido = '7'
-arduino = serial.Serial('/dev/ttyACM0', 9600)
+modoEscuchaLuz = '8'
+arduino = serial.Serial('/dev/ttyUSB0', 9600)
 filtro = []
 tiempoEsperaCiclo = 20
 cadenaMorse = ""

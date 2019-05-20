@@ -26,12 +26,12 @@ void loop(){
     //imprimir sonido de punto
   if(incomingByte == '1'){ 
     tone(bocina, 1200, 1000);
-    delay(1000);
+    delay(2000);
   }
   //imprimir sonido de guion
   else if(incomingByte == '2'){ 
     tone(bocina, 1200, 3000);
-    delay(1000);
+    delay(4000);
   }
   //imprimir sonido de nada
   else if(incomingByte == '3'){ 
