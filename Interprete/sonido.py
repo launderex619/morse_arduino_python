@@ -1,7 +1,6 @@
 import constantes
 import threading
-
-running = ""
+import re
 
 def leerArduinoSonido(running):
     constantes.filtro = []
@@ -44,7 +43,12 @@ def sonido():
     try:
         opcion = int(raw_input())
         if(opcion == 1):
-            cadena = raw_input("Ingresa la cadena: ")
+            while True:
+                cadena = raw_input("Ingresa la cadena: ")
+                if (re.findall("^[a-zA-Z0-9]+$", cadena)):
+                    break
+                else:
+                    print("Ingrese solo caracteres aceptados")
             constantes.enviaCadArduinoSonido(cadena)
         elif(opcion == 2):
             print('presiona ENTER para salir del modo escucha\n')
