@@ -1,6 +1,5 @@
 import constantes, threading
-
-running = ""
+import re
 
 def leerArduinoLuz(running):
      constantes.filtro = []
@@ -46,7 +45,12 @@ def luz():
     try:
         opcion = int(raw_input())
         if (opcion == 1):
-            cadena = raw_input("Ingresa la cadena: ")
+            while True:
+                cadena = raw_input("Ingresa la cadena: ")
+                if(re.findall("^[a-zA-Z0-9]+$",cadena)):
+                    break
+                else:
+                    print("Ingrese solo caracteres aceptados")
             constantes.enviaCadArduinoLuz(cadena)
 
         elif (opcion == 2):
