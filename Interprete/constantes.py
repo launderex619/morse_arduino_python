@@ -3,7 +3,7 @@ import serial,threading
 programaEjecutandose = True
 modoEscuchaSonido = '7'
 modoEscuchaLuz = '8'
-arduino = serial.Serial('/dev/ttyUSB0', 9600)
+arduino = serial.Serial('/dev/ttyACM0', 9600)
 filtro = []
 tiempoEsperaCiclo = 20
 cadenaMorse = ""
@@ -48,8 +48,9 @@ morseAscii = {
         "--...": "7",
         "---..": "8",
         "----.": "9",
-        "@": " "
+        " ": " "
         }
+asciiMorse = dict(map(reversed, morseAscii.items()))
 def numerosListaANumerosAscii(lista):
     punto = 1
     raya = 2
@@ -104,48 +105,9 @@ def decodifica(lista):
         oracion += convierte(cad)
     return oracion
 def convierte( cadena ):
-    switcher = {
-        ".-": "a",
-        "-...": "b",
-        "-.-.": "c",
-        "-..": "d",
-        ".": "e",
-        "..-.": "f",
-        "--.": "g",
-        "....": "h",
-        "..": "i",
-        ".---": "j",
-        "-.-": "k",
-        ".-..": "l",
-        "--": "m",
-        "-.": "n",
-        "---": "o",
-        ".--.": "p",
-        "--.-": "q",
-        ".-.": "r",
-        "...": "s",
-        "-": "t",
-        "..-": "u",
-        "...-": "v",
-        ".--": "w",
-        "-..-": "x",
-        "-.--": "y",
-        "--..": "z",
-        "-----": "0",
-        ".----": "1",
-        "..---": "2",
-        "...--": "3",
-        "....-": "4",
-        ".....": "5",
-        "-....": "6",
-        "--...": "7",
-        "---..": "8",
-        "----.": "9"
+    return morseAscii.get(cadena)
 
-    }
-    return switcher.get(cadena)
 
-asciiMorse = dict(map(reversed, morseAscii.items()))
 def listaAscii(lista):
     cad = ""
     oracion = ""
@@ -164,26 +126,37 @@ def listaAscii(lista):
     return oracion
 
 def enviaCadArduinoSonido(cadena):
+    cadena = cadena.lower()
+    archivo = open("mensaje.txt", "w+")
+    archivo.write(cadena)
+    morseTxt = "\n"
     for c in cadena:
         morse = asciiMorse.get(c)
-        print(morse)
+        morseTxt += morse + " "
         for m in morse:
             if m == '.':
                 arduino.write('1')
             elif m == '-':
                 arduino.write('2')
-            elif m == '@':
+            elif m == ' ':
                 arduino.write('3')
     arduino.write('3')
+    archivo.write(morseTxt)
+    archivo.close()
 def enviaCadArduinoLuz(cadena):
+    cadena = cadena.lower()
+    archivo = open("mensaje.txt", "w+")
+    archivo.write(cadena)
+    morseTxt = ""
     for c in cadena:
         morse = asciiMorse.get(c)
-        print(morse)
         for m in morse:
             if m == '.':
                 arduino.write('4')
             elif m == '-':
                 arduino.write('5')
-            elif m == '@':
+            elif m == ' ':
                 arduino.write('6')
     arduino.write('6')
+    archivo.write(morseTxt)
+    archivo.close()
